@@ -1,0 +1,23 @@
+@import "./components/main/styles.scss";
+@import "./components/blocks/styles.scss";
+@import "./components//block/styles.scss";
+@import "./components/errorMessage/styles.scss";
+@import "./components/loader/styles.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hash {
+  word-break: break-all;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
