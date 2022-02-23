@@ -1,23 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import BlockDataModal from "../blockDataModal/blockDataModal";
 
 const Block = ({ block, index }) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <div className="block">
+    <div className="block" onDoubleClick={() => setShowModal(true)}>
       <div className="block-index">{index}</div>
       <table>
         <tbody>
-          {/* <tr>
-            <td>Data:</td>
-            <td className="hash">
-              {block.data.map((item, index) => (
-                <div key={index}>
-                    {delete item?.input?.signature}
-                  <span>{JSON.stringify(item?.input, null, " ")}</span>
-                  <br />
-                </div>
-              ))}
-            </td>
-          </tr> */}
           <tr>
             <td>Hash:</td>
             <td className="hash">{block.hash}</td>
@@ -36,6 +27,12 @@ const Block = ({ block, index }) => {
           </tr>
         </tbody>
       </table>
+
+      <BlockDataModal
+        show={showModal}
+        block={block}
+        handleClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

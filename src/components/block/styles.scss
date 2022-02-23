@@ -1,10 +1,11 @@
 $borderColor: purple;
 
 .block {
-  margin: 0 20%;
+  margin: 0 30%;
   padding: 1rem;
   border: solid $borderColor 0.2rem;
   border-radius: 1rem;
+  cursor: pointer;
 
   .block-index {
     position: relative;
@@ -28,10 +29,10 @@ $borderColor: purple;
 
   td:nth-child(2) {
     padding-left: 0.5rem;
-    width: 92%;
+    width: 88%;
   }
 }
 
 .block:hover {
-  background-color: antiquewhite;
+  background-color: blueviolet;
 }
