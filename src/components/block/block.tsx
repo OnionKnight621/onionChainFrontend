@@ -6,7 +6,7 @@ const Block = ({ block, index }) => {
       <div className="block-index">{index}</div>
       <table>
         <tbody>
-          <tr>
+          {/* <tr>
             <td>Data:</td>
             <td className="hash">
               {block.data.map((item, index) => (
@@ -17,7 +17,7 @@ const Block = ({ block, index }) => {
                 </div>
               ))}
             </td>
-          </tr>
+          </tr> */}
           <tr>
             <td>Hash:</td>
             <td className="hash">{block.hash}</td>
@@ -28,7 +28,7 @@ const Block = ({ block, index }) => {
           </tr>
           <tr>
             <td>Time:</td>
-            <td>{block.timestamp}</td>
+            <td>{new Date(block.timestamp).toISOString()}</td>
           </tr>
           <tr>
             <td>Difficulty:</td>
