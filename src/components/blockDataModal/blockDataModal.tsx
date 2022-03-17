@@ -12,7 +12,7 @@ const BlockDataModal = ({ block, show, handleClose }) => {
       <Modal.Header id="block-data" className="bg-dark text-light">
         <Modal.Title>Block Data</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-dark text-light">
+      <Modal.Body className="bg-dark text-light block-data-body">
         <div className="bg-secondary">
           <table>
             <tbody>
@@ -35,12 +35,13 @@ const BlockDataModal = ({ block, show, handleClose }) => {
             </tbody>
           </table>
         </div>
-
         <div className="hash">
           {block.data.map((item, index) => (
             <div key={index}>
               <hr />
               <pre className="bg-secondary text-light">
+                {/* todo: replace later */}
+                {delete item?.input?.signature}
                 {JSON.stringify(item, null, 2)}
               </pre>
             </div>
