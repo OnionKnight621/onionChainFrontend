@@ -6,7 +6,7 @@ import Block from "../block/block";
 import ErrorMessage from "../errorMessage/errorMessage";
 import Loader from "../loader/loader";
 
-interface Block {
+interface IBlock {
   data: any;
   hash: string;
   lastHash: string;
@@ -20,7 +20,7 @@ const Blocks = () => {
     data: blocks,
     loading,
     error,
-  } = useFetch<Block[]>(`${mainApiUri}/api/blocks`);
+  } = useFetch<IBlock[]>(`${mainApiUri}/api/blocks`);
 
   if (loading) {
     return <Loader />;

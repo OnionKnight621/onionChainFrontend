@@ -1,22 +1,25 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import { Routes, Route } from "react-router-dom";
 
 import Blocks from "../blocks/blocks";
-import WalletInfo from "../walletInfo/walletInfo";
+import ConductTransaction from "../conductTransaction/conductTransaction";
+import Header from "../header/header";
 
 const Main = () => {
   return (
-    <div className="main">
-      <header className="main-header">
-        <h1>ONIONCHAIN</h1>
-        <WalletInfo />
-      </header>
+    <main className="main">
+      <Header />
       <Container fluid>
         <div className="main-body">
-          <Blocks />
+          <Routes>
+            <Route path="/" element={<Blocks />} />
+            <Route path="/transact" element={<ConductTransaction />} />
+            <Route path="*" element={<Blocks />} />
+          </Routes>
         </div>
       </Container>
-    </div>
+    </main>
   );
 };
 

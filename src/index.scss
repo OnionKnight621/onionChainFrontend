@@ -1,10 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./components/main/styles.scss";
+@import "./components/header/styles.scss";
 @import "./components/blocks/styles.scss";
 @import "./components/block/styles.scss";
 @import "./components/errorMessage/styles.scss";
 @import "./components/loader/styles.scss";
 @import "./components/blockDataModal/styles.scss";
+@import "./components/conductTransaction/styles.scss";
 
 body {
   margin: 0;

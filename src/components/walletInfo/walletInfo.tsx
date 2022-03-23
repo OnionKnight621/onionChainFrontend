@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import ErrorMessage from "../errorMessage/errorMessage";
 import Loader from "../loader/loader";
 
-interface WalletInfo {
+interface IWalletInfo {
   address: string;
   balance: number;
 }
@@ -15,7 +15,7 @@ const WalletInfo = () => {
     data: walletInfo,
     loading,
     error,
-  } = useFetch<WalletInfo>(`${mainApiUri}/api/wallet-info`);
+  } = useFetch<IWalletInfo>(`${mainApiUri}/api/wallet-info`);
 
   if (loading) return <Loader />;
 

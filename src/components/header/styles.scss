@@ -1,0 +1,18 @@
+.main-header {
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: azure;
+  }
+
+  .me-auto {
+    float: right;
+  }
+
+  .me-auto * {
+    margin: 0 0.5rem;
+  }
+}
