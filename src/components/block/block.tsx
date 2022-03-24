@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BlockDataModal from "../blockDataModal/blockDataModal";
 
 const Block = ({ block, index }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <div className="block" onDoubleClick={() => setShowModal(true)}>

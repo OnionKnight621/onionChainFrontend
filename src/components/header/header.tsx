@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import WalletInfo from "../walletInfo/walletInfo";

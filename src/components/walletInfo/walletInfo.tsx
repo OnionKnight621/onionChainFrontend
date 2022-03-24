@@ -1,5 +1,3 @@
-import React from "react";
-
 import { mainApiUri } from "../../config";
 import useFetch from "../../hooks/useFetch";
 import ErrorMessage from "../errorMessage/errorMessage";
