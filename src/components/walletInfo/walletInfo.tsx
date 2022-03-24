@@ -17,11 +17,11 @@ const WalletInfo = () => {
     error,
   } = useFetch<IWalletInfo>(`${mainApiUri}/api/wallet-info`);
 
-  if (loading) return <Loader />;
-
-  if (!walletInfo || error) {
+  if (error) {
     return <ErrorMessage error={error} />;
   }
+
+  if (loading || !walletInfo ) return <Loader />;
 
   return (
     <div className="wallet-info">

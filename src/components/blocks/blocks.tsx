@@ -1,5 +1,3 @@
-import React from "react";
-
 import { mainApiUri } from "../../config";
 import useFetch from "../../hooks/useFetch";
 import Block from "../block/block";
@@ -22,12 +20,12 @@ const Blocks = () => {
     error,
   } = useFetch<IBlock[]>(`${mainApiUri}/api/blocks`);
 
-  if (loading) {
-    return <Loader />;
+  if (error) {
+    return <ErrorMessage error={error} />;
   }
 
-  if (!blocks?.length) {
-    return <ErrorMessage error={error} />;
+  if (loading || !blocks?.length) {
+    return <Loader />;
   }
 
   return (
