@@ -1,9 +1,19 @@
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import Noty from 'noty';
 
 const ConductTransaction = () => {
-  const [address, setAddress] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [address, setAddress] = useState<string>("");
+  const [amount, setAmount] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (amount <= 0 || address.length < 64) {
+      return setDisabled(true);
+    }
+
+    return setDisabled(false);
+  }, [amount, address]);
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -17,6 +27,15 @@ const ConductTransaction = () => {
     if (value >= 0) {
       setAmount(value);
     }
+  };
+
+  const handleSend = () => {
+    new Noty({
+      text: "Succesfully sent",
+      layout: "topRight",
+      type: "success",
+    }).show();
+    setAmount(0);
   };
 
   return (
@@ -41,6 +60,13 @@ const ConductTransaction = () => {
             onChange={handleAmountChange}
           />
         </Form.Group>
+        <Button
+          variant="outline-warning"
+          disabled={disabled}
+          onClick={handleSend}
+        >
+          Send
+        </Button>
       </Form>
     </div>
   );
