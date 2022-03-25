@@ -19,11 +19,13 @@ const WalletInfo = () => {
     return <ErrorMessage error={error} />;
   }
 
-  if (loading || !walletInfo ) return <Loader />;
+  if (loading || !walletInfo) return <Loader />;
 
   return (
     <div className="wallet-info">
-      <span className="hash">{walletInfo.address}</span>
+      <span className="hash">
+        {walletInfo.address} : {walletInfo.balance}
+      </span>
     </div>
   );
 };

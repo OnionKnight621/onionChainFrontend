@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import Noty from 'noty';
+import Noty from "noty";
+
+import { mainApiUri } from "../../config";
+import { TEST_WALLET_ADDRESS } from "../../constants";
 
 const ConductTransaction = () => {
   const [address, setAddress] = useState<string>("");
@@ -8,7 +11,8 @@ const ConductTransaction = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   useEffect(() => {
-    if (amount <= 0 || address.length < 64) {
+    console.log(address, amount <= 0 , (address.length < 64 && address !== TEST_WALLET_ADDRESS));
+    if (amount <= 0 || (address.length < 64 && address !== TEST_WALLET_ADDRESS)) {
       return setDisabled(true);
     }
 
@@ -30,11 +34,30 @@ const ConductTransaction = () => {
   };
 
   const handleSend = () => {
-    new Noty({
-      text: "Succesfully sent",
-      layout: "topRight",
-      type: "success",
-    }).show();
+    // TODO: replace with useLazyFetch hook
+    fetch(`${mainApiUri}/api/transact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recipient: address, amount }),
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+        new Noty({
+          text: "Succesfully sent",
+          layout: "topRight",
+          type: "success",
+          timeout: 2000,
+        }).show();
+      }).catch((err => {
+        console.log(err);
+        new Noty({
+          text: "Smth went wrong",
+          layout: "topRight",
+          type: "error",
+          timeout: 2000,
+        }).show();
+      }));
+
     setAmount(0);
   };
 
