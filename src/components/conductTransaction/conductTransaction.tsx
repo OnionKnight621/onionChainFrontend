@@ -11,8 +11,10 @@ const ConductTransaction = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   useEffect(() => {
-    console.log(address, amount <= 0 , (address.length < 64 && address !== TEST_WALLET_ADDRESS));
-    if (amount <= 0 || (address.length < 64 && address !== TEST_WALLET_ADDRESS)) {
+    if (
+      amount <= 0 ||
+      (address.length < 64 && address !== TEST_WALLET_ADDRESS)
+    ) {
       return setDisabled(true);
     }
 
@@ -39,24 +41,24 @@ const ConductTransaction = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recipient: address, amount }),
-    }).then(res => res.json())
-      .then(data => {
-        console.log(data);
+    })
+      .then((res) => res.json())
+      .then((data) => {
         new Noty({
           text: "Succesfully sent",
           layout: "topRight",
           type: "success",
           timeout: 2000,
         }).show();
-      }).catch((err => {
-        console.log(err);
+      })
+      .catch((err) => {
         new Noty({
           text: "Smth went wrong",
           layout: "topRight",
           type: "error",
           timeout: 2000,
         }).show();
-      }));
+      });
 
     setAmount(0);
   };
