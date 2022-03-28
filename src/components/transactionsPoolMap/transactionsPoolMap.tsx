@@ -1,15 +1,27 @@
-import { mainApiUri } from "../../config";
-import useFetch from "../../hooks/useFetch";
+import { useEffect } from "react";
+
+import { mainApiUri, pollInterval } from "../../config";
+import useLazyFetch from "../../hooks/useLazyFetch";
 import ErrorMessage from "../errorMessage/errorMessage";
 import Loader from "../loader/loader";
 import Transaction from "../transaction/transaction";
 
 const TransactionsPoolMap = () => {
-  const {
-    data: transactionsPoolMap,
-    loading,
-    error,
-  } = useFetch<any>(`${mainApiUri}/api/transaction-pool-map`);
+  const [getTransactionsPool, { data: transactionsPoolMap, loading, error }] =
+    useLazyFetch<any>(`${mainApiUri}/api/transaction-pool-map`);
+
+  useEffect(() => {
+    getTransactionsPool();
+
+    const interval = setInterval(() => {
+      getTransactionsPool();
+      console.log(12)
+    }, pollInterval);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   if (error) {
     return <ErrorMessage error={error} />;
