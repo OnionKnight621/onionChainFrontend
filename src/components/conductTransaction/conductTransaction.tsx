@@ -4,11 +4,36 @@ import Noty from "noty";
 
 import { mainApiUri } from "../../config";
 import { TEST_WALLET_ADDRESS } from "../../constants";
+import useLazyFetch from "../../hooks/useLazyFetch";
 
 const ConductTransaction = () => {
   const [address, setAddress] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(true);
+
+  const [transact] = useLazyFetch(
+    `${mainApiUri}/api/transact`,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        new Noty({
+          text: "Succesfully sent",
+          layout: "topRight",
+          type: "success",
+          timeout: 2000,
+        }).show();
+      },
+      onError: (err) => {
+        console.log(err, "erd");
+        new Noty({
+          text: "Smth went wrong",
+          layout: "topRight",
+          type: "error",
+          timeout: 2000,
+        }).show();;
+      },
+    }
+  );
 
   useEffect(() => {
     if (
@@ -36,29 +61,11 @@ const ConductTransaction = () => {
   };
 
   const handleSend = () => {
-    // TODO: replace with useLazyFetch hook
-    fetch(`${mainApiUri}/api/transact`, {
+    transact({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recipient: address, amount }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        new Noty({
-          text: "Succesfully sent",
-          layout: "topRight",
-          type: "success",
-          timeout: 2000,
-        }).show();
-      })
-      .catch((err) => {
-        new Noty({
-          text: "Smth went wrong",
-          layout: "topRight",
-          type: "error",
-          timeout: 2000,
-        }).show();
-      });
+    });
 
     setAmount(0);
   };

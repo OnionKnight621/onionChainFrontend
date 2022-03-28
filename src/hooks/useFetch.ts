@@ -13,7 +13,13 @@ type Action<T> =
   | { type: "fetched"; payload: T }
   | { type: "error"; payload: Error };
 
-function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
+interface HookOpts {
+  options?: RequestInit;
+  onSuccess?: any;
+  onError?: any;
+}
+
+function useFetch<T = unknown>(url?: string, hookOptions?: HookOpts): State<T> {
   const cache = useRef<Cache<T>>({});
 
   // Used to prevent state update if the component is unmounted
@@ -55,7 +61,8 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
       }
 
       try {
-        const response = await fetch(url, options);
+        const opt = hookOptions?.options || undefined;
+        const response = await fetch(url, opt);
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -66,11 +73,19 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
 
         dispatch({ type: "loading", payload: false });
         dispatch({ type: "fetched", payload: data });
+
+        if (hookOptions?.onSuccess) {
+          hookOptions.onSuccess(response);
+        }
       } catch (error) {
         if (cancelRequest.current) return;
 
         dispatch({ type: "loading", payload: false });
         dispatch({ type: "error", payload: error as Error });
+
+        if (hookOptions?.onError) {
+          hookOptions.onError(error);
+        }
       }
     };
 
