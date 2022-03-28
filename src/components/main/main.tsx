@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Blocks from "../blocks/blocks";
 import ConductTransaction from "../conductTransaction/conductTransaction";
 import Header from "../header/header";
+import TransactionsPoolMap from "../transactionsPoolMap/transactionsPoolMap";
 
 const Main = () => {
   return (
@@ -14,6 +15,7 @@ const Main = () => {
           <Routes>
             <Route path="/" element={<Blocks />} />
             <Route path="/transact" element={<ConductTransaction />} />
+            <Route path="/transactions-pool-map" element={<TransactionsPoolMap />} />
             <Route path="*" element={<Blocks />} />
           </Routes>
         </div>

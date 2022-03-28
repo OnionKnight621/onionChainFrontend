@@ -10,6 +10,7 @@ const Header = () => {
         <Nav className="me-auto">
           <Link to="/">blocks</Link>
           <Link to="/transact">transact</Link>
+          <Link to="/transactions-pool-map">transactions pool</Link>
         </Nav>
       </Container>
       <h1>
