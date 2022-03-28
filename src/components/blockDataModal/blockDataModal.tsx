@@ -1,4 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
+import Transaction from "../transaction/transaction";
 
 const BlockDataModal = ({ block, show, handleClose }) => {
   return (
@@ -12,7 +13,7 @@ const BlockDataModal = ({ block, show, handleClose }) => {
         <Modal.Title>Block Data</Modal.Title>
       </Modal.Header>
       <Modal.Body className="bg-dark text-light block-data-body">
-        <div className="bg-secondary">
+        <div className="data-item">
           <table>
             <tbody>
               <tr>
@@ -38,11 +39,9 @@ const BlockDataModal = ({ block, show, handleClose }) => {
           {block.data.map((item, index) => (
             <div key={index}>
               <hr />
-              <pre className="bg-secondary text-light">
-                {/* todo: replace later */}
-                {delete item?.input?.signature}
-                {JSON.stringify(item, null, 2)}
-              </pre>
+              <div className="text-light data-item">
+                <Transaction transaction={item} />
+              </div>
             </div>
           ))}
         </div>
