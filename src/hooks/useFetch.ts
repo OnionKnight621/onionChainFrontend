@@ -15,6 +15,7 @@ type Action<T> =
 
 interface HookOpts {
   options?: RequestInit;
+  useCache?: boolean;
   onSuccess?: any;
   onError?: any;
 }
@@ -55,7 +56,7 @@ function useFetch<T = unknown>(url?: string, hookOptions?: HookOpts): State<T> {
       dispatch({ type: "loading", payload: true });
 
       // If a cache exists for this url, return it
-      if (cache.current[url]) {
+      if (cache.current[url] && hookOptions?.useCache) {
         dispatch({ type: "fetched", payload: cache.current[url] });
         return;
       }

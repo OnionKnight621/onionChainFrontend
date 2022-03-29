@@ -9,6 +9,7 @@ interface State<T> {
 
 interface HookOpts {
   options?: any;
+  useCache?: boolean;
   onSuccess?: any;
   onError?: any;
 }
@@ -60,7 +61,7 @@ function useLazyFetch<T = unknown>(
       dispatch({ type: "loading", payload: true });
 
       // If a cache exists for this url, return it
-      if (cache.current[url]) {
+      if (cache.current[url] && hookOptions?.useCache) {
         dispatch({ type: "fetched", payload: cache.current[url] });
         return;
       }
