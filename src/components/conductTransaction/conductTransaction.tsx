@@ -11,29 +11,24 @@ const ConductTransaction = () => {
   const [amount, setAmount] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(true);
 
-  const [transact] = useLazyFetch(
-    `${mainApiUri}/api/transact`,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-        new Noty({
-          text: "Succesfully sent",
-          layout: "topRight",
-          type: "success",
-          timeout: 2000,
-        }).show();
-      },
-      onError: (err) => {
-        console.log(err, "erd");
-        new Noty({
-          text: "Smth went wrong",
-          layout: "topRight",
-          type: "error",
-          timeout: 2000,
-        }).show();;
-      },
-    }
-  );
+  const [transact] = useLazyFetch(`${mainApiUri}/api/transact`, {
+    onSuccess: () => {
+      new Noty({
+        text: "Succesfully sent",
+        layout: "topRight",
+        type: "success",
+        timeout: 2000,
+      }).show();
+    },
+    onError: () => {
+      new Noty({
+        text: "Smth went wrong",
+        layout: "topRight",
+        type: "error",
+        timeout: 2000,
+      }).show();
+    },
+  });
 
   useEffect(() => {
     if (
